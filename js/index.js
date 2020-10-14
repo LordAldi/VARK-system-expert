@@ -65,43 +65,40 @@ document.getElementById("submit").addEventListener("click", function (event) {
   }
   var results = document.getElementById("result");
   // results.innerHTML = `a:${score[0]}, b:${score[1]}, c:${score[2]} ,d:${score[3]} vark:${vark}`;
-  results.innerHTML = "<h1>You are :</h1>";
+  results.innerHTML = "<h5>You are :</h5>";
   // $("#main").load("visual.html ");
   // $("#main").loadmore
   document.getElementById("main").innerHTML = "";
   var defArr = [];
   jQuery.ajaxSetup({ async: false }); //if order matters
   vark.forEach((s, i) => {
-    console.log(i);
     if (s === "v") {
       defArr.push($.get("visual.html", "", (data) => $("#main").append(data)));
-      results.innerHTML += "<h2> Visual Preferance</h2>";
+      results.innerHTML += "<li> Visual Preferance</li>";
     }
     if (s === "a") {
       defArr.push($.get("aural.html", "", (data) => $("#main").append(data)));
-      results.innerHTML += "<h2> Aural Preferance</h2>";
+      results.innerHTML += "<li> Aural Preferance</li>";
     }
     if (s === "r") {
       defArr.push($.get("read.html", "", (data) => $("#main").append(data)));
-      results.innerHTML += "<h2> Read/Write Preferance</h2>";
+      results.innerHTML += "<li> Read/Write Preferance</li>";
     }
     if (s === "k") {
       defArr.push(
         $.get("kinesthetic.html", "", (data) => $("#main").append(data))
       );
-      results.innerHTML += "<h2> Kinesthetic Preferance</h2>";
+      results.innerHTML += "<li> Kinesthetic Preferance</li>";
     }
   });
-  if (defArr.length > 0) {
+  console.log(defArr.length);
+  if (defArr.length > 1) {
     defArr.push($.get("multi.html", "", (data) => $("#main").append(data)));
-    results.innerHTML += "<h2> Multimodal Preferance</h2>";
+    results.innerHTML += "<li> Multimodal Preferance</li>";
   }
 
   jQuery.ajaxSetup({ async: true });
 
-  console.log(key);
-  console.log(score);
-  console.log(sum);
   vark = [];
   score = [0, 0, 0, 0];
 });
@@ -109,10 +106,12 @@ document.getElementById("submit").addEventListener("click", function (event) {
 let soal = document.getElementById("soal");
 soal.innerHTML = quiz.map((s, i) => {
   return `
-    <div id="soal-item${i + 1}">
-      <h6>${i + 1 + ") " + s["soal"]}</h6>
+    <div id="soal-item${
+      i + 1
+    }" class="collection-item   lighten-5 z-depth-1 black-text">
+      <h8>${i + 1 + ") " + s["soal"]}</h8>
       <p>
-        <label>
+        <label >
           <input name= "quiz${i + 1}" type="checkbox" value= "a${i + 1}" />
           <span>a. ${s["a"]}</span>
         </label>
